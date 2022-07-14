@@ -1,7 +1,18 @@
-project (hpccsystems-nagios-monitoring)
-cmake_minimum_required (VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.16.0)
 
 set(HPCC_NM_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set (HPCC_SOURCE_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/..)
+IF ("${HPCC_SOURCE_DIR}" STREQUAL "")
+  set (HPCC_SOURCE_DIR ${HPCC_SOURCE_ROOT_DIR}/HPCC-Platform)
+ENDIF()
+
+set(CMAKE_TOOLCHAIN_FILE ${HPCC_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake)
+set(VCPKG_OVERLAY_PORTS ${HPCC_SOURCE_DIR}/vcpkg/overlays)
+set(VCPKG_INSTALL_OPTIONS "--clean-after-build;--downloads-root=${CMAKE_BINARY_DIR}/vcpkg_downloads;--x-buildtrees-root=${CMAKE_BINARY_DIR}/vcpkg_buildtrees;--x-packages-root=${CMAKE_BINARY_DIR}/vcpkg_packages")
+set(VCPKG_MANIFEST_DIR ${HPCC_SOURCE_DIR})
+
+project (hpccsystems-nagios-monitoring)
+
 set(CMAKE_MODULE_PATH "${HPCC_NM_SOURCE_DIR}/cmake_modules/")
 message(STATUS "CMAKE_MODULE_PATH is set to ${CMAKE_MODULE_PATH}")
 
@@ -15,11 +26,6 @@ endif()
 
 set(BUILD_TAG "${projname}_${version}-${stagever}")
 
-set(HPCC_SOURCE_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/..)
-
-if("${HPCC_SOURCE_DIR}" STREQUAL "")
-    set(HPCC_SOURCE_DIR ${HPCC_SOURCE_ROOT_DIR}/HPCC-Platform)
-endif()
 
 include(${HPCC_NM_SOURCE_DIR}/version.cmake)
 include(${HPCC_SOURCE_DIR}/cmake_modules/optionDefaults.cmake)
