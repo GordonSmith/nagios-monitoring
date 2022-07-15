@@ -1,0 +1,37 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../HPCC-Platform"
+		},
+		{
+			"path": "../build"
+		},
+	],
+	"settings": {
+		"cmake.generator": "Unix Makefiles",
+		"cmake.configureArgs": [
+			"-DRUNTIME_USER=${env:USER}",
+			"-DDESTDIR=${userHome}/hpcc-${buildType}",
+			"-DHPCC_SOURCE_DIR=${workspaceFolder}/../HPCC-Platform",
+			"-DUSE_OPTIONAL=OFF",
+			"-DINCLUDE_PLUGINS=ON",
+			"-DSUPPRESS_V8EMBED=ON",
+			"-DSUPPRESS_REMBED=ON"
+		],
+		"cmake.buildDirectory": "${workspaceFolder}/../build",
+		"editor.formatOnSave": false,
+		"ecl.launchConfiguration": "not found",
+		"ecl.targetCluster": {},
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-vscode.cpptools",
+			"ms-vscode.cpptools-extension-pack",
+			"ms-vscode.cmake-tools",
+			"twxs.cmake",
+		]
+	}
+}
